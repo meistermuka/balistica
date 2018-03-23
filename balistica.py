@@ -66,43 +66,46 @@ the_shell = Shell(int(Y_MAX / 2),
                   Y_MAX - 1,
                   X_MAX - 1)
 
-# EVENT LOOP!
-while True:
+try:
+    # EVENT LOOP!
+    while True:
 
-    quote_window.clear()
-    quote_window.box()
-    the_shell.render()
-    event = quote_window.getch()
+        quote_window.clear()
+        quote_window.box()
+        the_shell.render()
+        event = quote_window.getch()
 
-    if event == 27:
-        break
+        if event == 27:
+            break
 
-    if event in [KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT]:
-        the_shell.change_direction(event)
+        if event in [KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT]:
+            the_shell.change_direction(event)
 
-    if event == 32:
-        key = -1
-        while key != 32:
-            key = quote_window.getch()
+        if event == 32:
+            key = -1
+            while key != 32:
+                key = quote_window.getch()
 
-    if event == ord('q') or event == ord('Q'):
-        break
+        if event == ord('q') or event == ord('Q'):
+            break
 
-    stdscr.addstr(curses.LINES-1, 0, "Shell Coordinates: [%d, %d]" % the_shell.coord)
+        stdscr.addstr(curses.LINES-1, 0, "Shell Coordinates: [%d, %d]" % the_shell.coord)
 
-    #the_shell.update()
+        #the_shell.update()
 
-    # Refresh windows from bottom up to avoid flickering...
-    stdscr.noutrefresh()
-    quote_window.noutrefresh()
-    #quote_text_window.noutrefresh()
-    curses.doupdate()
+        # Refresh windows from bottom up to avoid flickering...
+        stdscr.noutrefresh()
+        quote_window.noutrefresh()
+        #quote_text_window.noutrefresh()
+        curses.doupdate()
+except Exception as exc:
+    raise
+finally:
+    # restore terminal settings
+    curses.nocbreak()
+    # stdscr.keypad(0)
+    curses.echo()
+    curses.curs_set(1)
 
-# restore terminal settings
-curses.nocbreak()
-# stdscr.keypad(0)
-curses.echo()
-curses.curs_set(1)
-
-# REstore the terminal to former self
-curses.endwin()
+    # REstore the terminal to former self
+    curses.endwin()

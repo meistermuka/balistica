@@ -48,7 +48,7 @@ class Shell(object):
 
     def move_up(self):
         self.y -= 1
-        if self.y < 1 or self.nose_y < 1:
+        if self.y < 1:# or self.nose_y < 1:
             self.y = self.max_y
             self.nose_y = self.max_y - 1
 
@@ -57,7 +57,7 @@ class Shell(object):
 
     def move_down(self):
         self.y += 1
-        if self.y > self.max_y or self.nose_y > self.max_y:
+        if self.y >= self.max_y:# or self.nose_y > self.max_y:
             self.y = 1
             self.nose_y = self.y + 1
 
@@ -66,7 +66,7 @@ class Shell(object):
 
     def move_left(self):
         self.x -= 1
-        if self.x < 1 or self.nose_x < 1:
+        if self.x < 1:
             self.x = self.max_x
             self.nose_x = self.max_x - 1
 
@@ -75,7 +75,7 @@ class Shell(object):
 
     def move_right(self):
         self.x += 1
-        if self.x > self.max_x or self.nose_x > self.max_x:
+        if self.x >= self.max_x:
             self.x = 1
             self.nose_x = self.x + 1
 
